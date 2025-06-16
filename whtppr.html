@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AINTV Whitepaper - Gold & Black Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header with glossy effect */
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #2a2a2a 50%, #000000 100%);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            color: #cccccc;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .header .version {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Section styling */
+        .section {
+            margin: 80px 0;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+
+        /* Card styling with glossy effect */
+        .card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+            animation: borderShine 2s infinite;
+        }
+
+        @keyframes borderShine {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        /* Language tabs */
+        .language-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .tab {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            color: #cccccc;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            color: #FFD700;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lists styling */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+
+        /* Tokenomics section */
+        .tokenomics {
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+        }
+
+        .token-distribution {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .token-item {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #FFD700;
+            transition: all 0.3s ease;
+        }
+
+        .token-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .token-percentage {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        /* Roadmap */
+        .roadmap {
+            position: relative;
+        }
+
+        .roadmap-item {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 5px solid #FFD700;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .roadmap-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: #FFD700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .contact-item a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-item a:hover {
+            color: #FFA500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .language-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #FFA500, #FFD700);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>AINTV</h1>
+            <p class="subtitle">World's First Student-Focused OTT Platform</p>
+            <span class="version">Draft Version 1.0</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Executive Summary -->
+        <section class="section">
+            <h2 class="section-title">1. EXECUTIVE SUMMARY</h2>
+            <div class="card">
+                <div class="language-tabs">
+                    <button class="tab active" onclick="showTab('summary', 'id')">ID</button>
+                    <button class="tab" onclick="showTab('summary', 'en')">EN</button>
+                    <button class="tab" onclick="showTab('summary', 'jp')">JP</button>
+                </div>
+                
+                <div id="summary-id" class="tab-content active">
+                    <p>AINTV adalah platform OTT digital pertama di dunia yang didedikasikan secara khusus untuk menampilkan karya sinema dari pelajar dan mahasiswa. AINTV bukan sekadar platform tontonan, melainkan wadah edukatif, kolaboratif, dan kompetitif global berbasis teknologi blockchain dan crypto (AINT Token), yang bertujuan memberdayakan generasi muda melalui ekspresi kreatif.</p>
+                </div>
+                
+                <div id="summary-en" class="tab-content">
+                    <p>AINTV is the world's first digital OTT platform specifically dedicated to showcasing cinematic works by students and young creatives. AINTV is not just a streaming platform—it is an educational, collaborative, and competitive global hub powered by blockchain and its native cryptocurrency, AINT Token, empowering the youth through creative expression.</p>
+                </div>
+                
+                <div id="summary-jp" class="tab-content">
+                    <p>AINTVは、学生や青年クリエーターの映画作品を紹介するための世界初の学生特化OTTプラットフォームです。AINTVは単なる動画配信サービスにとどまらず、ブロックチェーンとクリプト通貨を駆動力とする、教育的、協力的、競争的なグローバルハブです。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Mission -->
+        <section class="section">
+            <h2 class="section-title">2. VISI & MISI</h2>
+            <div class="card">
+                <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Visi</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">Menjadi jembatan utama sinema pelajar menuju panggung dunia.</p>
+                
+                <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Misi</h3>
+                <ul>
+                    <li>Mewadahi kreativitas pelajar dan mahasiswa dalam bentuk karya sinema.</li>
+                    <li>Menyediakan akses global untuk menonton dan mendukung film pelajar.</li>
+                    <li>Membangun ekosistem penghargaan dan kompetisi global.</li>
+                    <li>Mengintegrasikan sistem pembayaran berbasis kripto (AINT Token).</li>
+                </ul>
+                
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(255, 215, 0, 0.1); border-radius: 15px;">
+                    <h3 style="color: #FFD700; font-size: 1.8rem; font-style: italic;">"Berpikir secara bebas, berpikir sampai akar-akarnya."</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem & Solution -->
+        <section class="section">
+            <h2 class="section-title">3. LATAR BELAKANG / PROBLEM - SOLUTION</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="card">
+                    <h3 style="color: #FF6B6B; font-size: 1.5rem; margin-bottom: 20px;">Masalah</h3>
+                    <ul>
+                        <li>Minimnya platform yang memberi ruang khusus bagi karya pelajar.</li>
+                        <li>Karya pelajar sering kali tidak mendapatkan panggung atau penonton.</li>
+                        <li>Tidak adanya sistem penghargaan dan monetisasi yang inklusif.</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #4ECDC4; font-size: 1.5rem; margin-bottom: 20px;">Solusi oleh AINTV</h3>
+                    <ul>
+                        <li>Platform OTT eksklusif untuk karya pelajar & mahasiswa.</li>
+                        <li>Sistem kurasi oleh kurator profesional + voting publik.</li>
+                        <li>Penerapan blockchain dan crypto (AINT Token) sebagai metode monetisasi modern.</li>
+                        <li>Sistem kompetisi film sekolah dan universitas dengan visibilitas global.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Features -->
+        <section class="section">
+            <h2 class="section-title">4. FITUR UTAMA AINTV</h2>
+            <div class="card">
+                <ul>
+                    <li><strong style="color: #FFD700;">Eksklusivitas Pelajar</strong>: Hanya karya dari pelajar dan mahasiswa yang bisa ditayangkan.</li>
+                    <li><strong style="color: #FFD700;">Kurasi Profesional + Voting Publik</strong>: Kombinasi kurator ahli dan demokrasi komunitas.</li>
+                    <li><strong style="color: #FFD700;">Token AINT</strong>: Sistem pembayaran, reward, dan insentif menggunakan cryptocurrency AINT.</li>
+                    <li><strong style="color: #FFD700;">Kompetisi Sekolah & Universitas</strong>: Sistem ranking, trending, dan nominasi award berdasarkan wilayah dan kategori.</li>
+                    <li><strong style="color: #FFD700;">Sosialisasi & Edukasi</strong>: Mengunjungi sekolah-sekolah untuk mengedukasi dunia sinema sejak dini.</li>
+                    <li><strong style="color: #FFD700;">Distribusi Global</strong>: Karya yang trending akan mendapat penayangan di level global.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SDGs Contribution -->
+        <section class="section">
+            <h2 class="section-title">5. KONTRIBUSI TERHADAP SDGs</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="card">
+                    <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">SDG 4 - Quality Education</h3>
+                    <ul>
+                        <li>Meningkatkan akses dan motivasi belajar melalui media film.</li>
+                        <li>Mendorong pengembangan soft skill: storytelling, produksi, dan kritik media.</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">SDG 17 - Partnerships for the Goals</h3>
+                    <ul>
+                        <li>Kolaborasi antar sekolah, universitas, dan komunitas global.</li>
+                        <li>Kompetisi dan sinergi budaya antar negara melalui film pelajar.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Efek Sosial Positif</h3>
+                <ul>
+                    <li>Meningkatkan kepercayaan diri pelajar dalam berkarya.</li>
+                    <li>Mendorong pertukaran ide dan kebudayaan.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tokenomics -->
+        <section class="section tokenomics">
+            <h2 class="section-title">6. TOKENOMICS AINT</h2>
+            <div class="card">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h3 style="color: #FFD700; font-size: 2rem; margin-bottom: 10px;">AINT TOKEN</h3>
+                    <p style="font-size: 1.2rem;">Utility Token berbasis blockchain (ERC-20 atau setara)</p>
+                </div>
+                
+                <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Kegunaan Token</h3>
+                <ul style="margin-bottom: 40px;">
+                    <li>Membayar akses konten eksklusif</li>
+                    <li>Voting publik dalam pemilihan film unggulan</li>
+                    <li>Reward bagi kreator film</li>
+                    <li>Konversi ke merchandise, badge, dan fasilitas partner AINTV</li>
+                </ul>
+                
+                <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Distribusi Token</h3>
+                <div class="token-distribution">
+                    <div class="token-item">
+                        <div class="token-percentage">40%</div>
+                        <div>Komunitas & Reward Pelajar</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-percentage">20%</div>
+                        <div>Ekosistem dan operasional platform</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-percentage">15%</div>
+                        <div>Tim inti dan advisor</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-percentage">10%</div>
+                        <div>Partner dan kolaborator</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-percentage">10%</div>
+                        <div>Marketing dan ekspansi global</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-percentage">5%</div>
+                        <div>Cadangan dan emergency fund</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px; padding: 25px; background: rgba(255, 215, 0, 0.1); border-radius: 15px;">
+                    <h3 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 15px;">Keamanan & Transparansi</h3>
+                    <p>Semua transaksi dan voting akan tercatat di blockchain untuk transparansi dan audit publik.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section class="section roadmap">
+            <h2 class="section-title">7. ROADMAP AINTV (2024–2026)</h2>
+            
+            <div class="roadmap-item">
+                <div class="roadmap-year">2024 Q2 - Q4</div>
+                <ul>
+                    <li>Launch resmi platform AINTV (versi global)</li>
+                    <li>Sosialisasi ke 50+ sekolah dan kampus Indonesia</li>
+                    <li>Penerbitan 100 film pelajar pertama</li>
+                    <li>Listing Token AINT di DEX/CEX partner</li>
+                    <li>Penunjukan ambassador kampus global</li>
+                </ul>
+            </div>
+            
+            <div class="roadmap-item">
+                <div class="roadmap-year">2025 Q1 - Q3</div>
+                <ul>
+                    <li>Kompetisi global film pelajar (regional Asia Tenggara)</li>
+                    <li>Kolaborasi dengan universitas Jepang, Korea, Jerman, Brazil</li>
+                    <li>Pre-event: Mini screening & workshop jelang Expo Osaka 2025</li>
+                    <li>Sosialisasi AINTV di 10 negara</li>
+                    <li>Finalisasi desain booth & kurasi film unggulan</li>
+                </ul>
+            </div>
+            
+            <div class="roadmap-item">
+                <div class="roadmap-year">2025 Q4 (Osaka Expo)</div>
+                <ul>
+                    <li>Rolling Exhibition: Booth digital AINTV di area Youth & Digital Culture</li>
+                    <li>Pemutaran film pendek terpilih</li>
+                    <li>Interaktif: voting live, QR ke platform, meet creator</li>
+                    <li>Business Forum dengan stakeholder pendidikan, film, dan teknologi</li>
+                    <li>Peluncuran fitur NFT untuk film unggulan</li>
+                </ul>
+            </div>
+            
+            <div class="roadmap-item">
+                <div class="roadmap-year">2026</div>
+                <ul>
+                    <li>Ekspansi ke 50 negara</li>
+                    <li>Peluncuran program beasiswa sineas pelajar</li>
+                    <li>Fitur AI recommendation engine</li>
+                    <li>AINTV Academy: platform pembelajaran sinematografi digital</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Booth & Business Forum -->
+        <section class="section">
+            <h2 class="section-title">8. BOOTH & BUSINESS FORUM – EXPO OSAKA 2025</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="card">
+                    <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Konsep Booth</h3>
+                    <p style="margin-bottom: 20px;"><strong>Visual:</strong> Gold & Black Immersive Digital Booth</p>
+                    <h4 style="color: #FFD700; margin-bottom: 15px;">Fitur:</h4>
+                    <ul>
+                        <li>Layar LED interaktif putar film pelajar</li>
+                        <li>QR scan untuk voting & akses langsung ke platform</li>
+                        <li>NFT Wall: showcase film NFT AINT terverifikasi</li>
+                        <li>"Create Your Scene" Station: interaksi real-time pengunjung</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 20px;">Business Forum</h3>
+                    <p style="margin-bottom: 20px;"><strong>Tema:</strong> "Empowering Global Youth Through Cinema & Blockchain"</p>
+                    <p style="margin-bottom: 20px;"><strong>Peserta:</strong> edukator, sineas, investor Web3, pemerintah</p>
+                    <p><strong>Tujuan:</strong> partnership, inkubasi film, dan ekspansi platform</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <h2 style="color: #FFD700; margin-bottom: 30px;">9. PENUTUP & KONTAK</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 40px;">AINTV bukan sekadar platform tontonan, tapi gerakan global untuk kreativitas pelajar dunia. Dengan sistem inovatif dan semangat kolaborasi, kami siap membawa karya pelajar ke panggung dunia.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Website</h4>
+                    <a href="https://aintv.net">https://aintv.net</a>
+                </div>
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <a href="mailto:aintv@alphaindonusa.com">aintv@alphaindonusa.com</a>
+                </div>
+                <div class="contact-item">
+                    <h4>Instagram</h4>
+                    <a href="#">@aintv.official</a>
+                </div>
+                <div class="contact-item">
+                    <h4>ExixtCube</h4>
+                    <a href="https://aintv.net/exist_cube_app/profile/share/70">@Aintv_Official</a>
+                </div>
+              <div class="contact-item">
+                    <h4>X</h4>
+                    <a href="https://x.com/Aintv_?t=wKA8_3ydS6KTZKl4feQRtw&s=08">@AINTV_OFFICIAL</a>
+                </div>
+              <div class="contact-item">
+                    <h4>TikTok</h4>
+                    <a href="https://www.tiktok.com/@aintv_official?_t=ZS-8wwQg1G8SlU&_r=1">@Aintv_Official</a>
+                </div>
+              <div class="contact-item">
+                    <h4>Facebook</h4>
+                    <a href="https://www.facebook.com/share/1B9PzYtJfa/">@AINTV</a>
+                </div>
+              <div class="contact-item">
+                    <h4>DISQURS</h4>
+                    <a href="https://disqurs.com/1749539457294573">@Aintv_Official</a>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px; padding: 30px; background: rgba(255, 215, 0, 0.1); border-radius: 15px;">
+                <p style="font-size: 1.1rem; margin-bottom: 10px;"><strong>MANAGE BY:</strong> PT Alpha Indo Nusa</p>
+           </div>
+          <div class="contact-item">
+                    <h4>Email</h4>
+                    <a href="mailto:aintv@alphaindonusa.com">alpha@alphaindonusa.com</a>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(section, language) {
+            // Hide all tab contents for this section
+            const contents = document.querySelectorAll(`#${section}-id, #${section}-en, #${section}-jp`);
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs in this section
+            const tabs = document.querySelectorAll(`[onclick*="${section}"]`);
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected content and activate tab
+            document.getElementById(`${section}-${language}`).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
