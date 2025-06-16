@@ -1,2 +1,0 @@
-# web-whitepaper
-whitepaper aintv
